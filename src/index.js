@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Navbar from "./components/Navbar/Navbar";
+import "tachyons";
 
 import "./styles.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>BrainLab</h1>
+      <Navbar />
+      {/*<Logo />
+      <Rank />
+      <ImageLinkForm />*/}
     </div>
   );
 }
