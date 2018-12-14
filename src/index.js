@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Logo from "./components/Logo/Logo";
+import Rank from "./components/Rank/Rank";
+import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import "tachyons";
 
 import "./styles.css";
@@ -11,8 +13,8 @@ function App() {
     <div className="App">
       <Navbar />
       <Logo />
-      {/*<Rank />
-      <ImageLinkForm />*/}
+      <Rank />
+      <ImageLinkForm />
     </div>
   );
 }
