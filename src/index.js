@@ -4,6 +4,7 @@ import Clarifai from "clarifai";
 import Navbar from "./components/Navbar/Navbar";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import "tachyons";
 import Particles from "react-particles-js";
@@ -28,29 +29,27 @@ const particleoptions = {
 };
 class App extends Component {
   state = {
-    input: ""
+    input: "",
+    imageUrl: ""
   };
 
   onInputChange = e => {
-    console.log(e.target.value);
+    this.setState({ input: e.target.value });
   };
 
   onButtonClick = () => {
-    console.log("Clikced");
+    this.setState({
+      imageUrl: this.state.input
+    });
     // predict the contents of an image by passing in a url
-    app.models
-      .predict(
-        Clarifai.GENERAL_MODEL,
-        "https://samples.clarifai.com/metro-north.jpg"
-      )
-      .then(
-        function(response) {
-          console.log(response);
-        },
-        function(err) {
-          console.error(err);
-        }
-      );
+    app.models.predict(Clarifai.COLOR_MODEL, this.state.input).then(
+      function(response) {
+        console.log(response);
+      },
+      function(err) {
+        console.error(err);
+      }
+    );
   };
 
   render() {
@@ -64,6 +63,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonClick={this.onButtonClick}
         />
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
     );
   }
