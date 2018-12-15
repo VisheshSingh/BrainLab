@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Clarifai from "clarifai";
 import Navbar from "./components/Navbar/Navbar";
+import SignIn from "./components/SignIn/SignIn";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -74,6 +75,7 @@ class App extends Component {
       <div className="App">
         <Particles className="particles" params={particleoptions} />
         <Navbar />
+        <SignIn />
         <Logo />
         <Rank />
         <ImageLinkForm
