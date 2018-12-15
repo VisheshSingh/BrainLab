@@ -14,6 +14,7 @@ const ImageLinkForm = props => {
             onChange={onInputChange}
             type="text"
             className="f4 pa2 w-70 center"
+            placeholder="Place your URL here..."
           />
           <button
             onClick={onButtonClick}
