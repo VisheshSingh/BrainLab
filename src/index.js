@@ -30,11 +30,32 @@ const particleoptions = {
 class App extends Component {
   state = {
     input: "",
-    imageUrl: ""
+    imageUrl: "",
+    box: {}
   };
 
   onInputChange = e => {
     this.setState({ input: e.target.value });
+  };
+
+  calculateBox = data => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    console.log(width, height);
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height
+    };
+  };
+
+  displayFaceBox = box => {
+    console.log(box);
+    this.setState({ box: box });
   };
 
   onButtonClick = () => {
@@ -42,16 +63,10 @@ class App extends Component {
       imageUrl: this.state.input
     });
     // predict the contents of an image by passing in a url
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-      function(response) {
-        console.log(
-          response.outputs[0].data.regions[0].region_info.bounding_box
-        );
-      },
-      function(err) {
-        console.error(err);
-      }
-    );
+    app.models
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then(response => this.displayFaceBox(this.calculateBox(response)))
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -65,7 +80,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonClick={this.onButtonClick}
         />
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
       </div>
     );
   }
