@@ -1,13 +1,24 @@
 import React from "react";
 
-const SignIn = props => {
+const Register = props => {
   const { onRouteChange } = props;
   return (
     <div className="grow br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
       <main class="pa4 black-80">
         <form class="measure center">
           <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-            <legend class="f4 fw6 ph0 mh0">Sign In</legend>
+            <legend class="f4 fw6 ph0 mh0">Register</legend>
+            <div class="mt3">
+              <label class="db fw6 lh-copy f6" for="name">
+                Name
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                type="email"
+                name="name"
+                id="name"
+              />
+            </div>
             <div class="mt3">
               <label class="db fw6 lh-copy f6" for="email-address">
                 Email
@@ -36,17 +47,8 @@ const SignIn = props => {
               onClick={() => onRouteChange("home")}
               class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
               type="submit"
-              value="Sign in"
+              value="Register"
             />
-          </div>
-          <div class="lh-copy mt3">
-            <a
-              onClick={() => onRouteChange("register")}
-              href="#0"
-              class="f6 link dim black db"
-            >
-              Register
-            </a>
           </div>
         </form>
       </main>
@@ -54,4 +56,4 @@ const SignIn = props => {
   );
 };
 
-export default SignIn;
+export default Register;

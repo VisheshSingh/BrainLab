@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Clarifai from "clarifai";
 import Navbar from "./components/Navbar/Navbar";
 import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -32,7 +33,8 @@ class App extends Component {
   state = {
     input: "",
     imageUrl: "",
-    box: {}
+    box: {},
+    route: ""
   };
 
   onInputChange = e => {
@@ -70,19 +72,33 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  onRouteChange = route => {
+    this.setState({ route: route });
+  };
+
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particleoptions} />
-        <Navbar />
-        <SignIn />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonClick={this.onButtonClick}
-        />
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+        <Navbar onRouteChange={this.onRouteChange} />
+        {this.state.route === "home" ? (
+          <div className="home">
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonClick={this.onButtonClick}
+            />
+            <FaceRecognition
+              box={this.state.box}
+              imageUrl={this.state.imageUrl}
+            />
+          </div>
+        ) : this.state.route === "signin" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
+        )}
       </div>
     );
   }
