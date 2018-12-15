@@ -42,9 +42,11 @@ class App extends Component {
       imageUrl: this.state.input
     });
     // predict the contents of an image by passing in a url
-    app.models.predict(Clarifai.COLOR_MODEL, this.state.input).then(
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
       function(response) {
-        console.log(response);
+        console.log(
+          response.outputs[0].data.regions[0].region_info.bounding_box
+        );
       },
       function(err) {
         console.error(err);
